@@ -27,7 +27,8 @@ public class ConsumidorEventoNuevo extends ConsumidorMensajes implements IConsum
 		this.gestorEventos.agregarEvento(evento);
 		bitacora.info("Evento agregado:" + evento);		
 	}
-	
+
+	@Override
 	public void consumirMensajes() {
 		super.consumirMensajes();
 		bitacora.info("Recuperación de mensajes en segundo plano activa. Id(Consumer tag)=" + this.idConsumidor);		

@@ -18,12 +18,13 @@ public class Application {
 
 	@Bean
 	public IConsumidorMsgEvtosNuevos getConsumidorMensajes(Environment env, IGestorEventosProgramados gestorEventos) {
-		IConsumidorMsgEvtosNuevos consumMessageBroker = new ConsumidorEventoNuevo(
-				env.getProperty("qtx.gstInvitaciones.messageBroker.host", "localhost"),
-				env.getProperty("qtx.gstInvitaciones.messageBroker.nomColaEvtos", "colaEventosDefault"),
-				env.getProperty("qtx.gstInvitaciones.messageBroker.exchangeEvtos", "exchangeDefault"),
-				gestorEventos
-				);
+		String ipMessageBroker = env.getProperty("qtx.gstInvitaciones.messageBroker.host", "localhost");
+		String nombreCola = env.getProperty("qtx.gstInvitaciones.messageBroker.nomColaEvtos", "colaEventosDefault");
+		String nombreExchange = env.getProperty("qtx.gstInvitaciones.messageBroker.exchangeEvtos", "exchangeDefault");
+
+		IConsumidorMsgEvtosNuevos consumMessageBroker =
+				new ConsumidorEventoNuevo(ipMessageBroker, nombreCola, nombreExchange, gestorEventos);
+
 		consumMessageBroker.suscribirseAexchangeConfig();
 		consumMessageBroker.consumirMensajes();
 		return consumMessageBroker;
